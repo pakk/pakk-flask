@@ -24,3 +24,17 @@ def get_static_file(path):
         else:
             return send_from_directory("./static", path)
 ```
+
+You can also use pakk_flask to render templates from pakk files:
+
+```py
+from pakk_flask import render_template, PakkTemplate
+
+@APP.route("/home")
+def get_home_page():
+    with open("./files.pakk", "rb") as in_file:
+        unpakked = unpakk(KEY, in_file)
+        render_template(PakkTemplate(unpakked, "index.html"),
+            some_value="Hello, ",
+            another_value="World!")
+```
