@@ -52,7 +52,7 @@ def render_template(source, **context):
     """
     A replacement for Flask's render_template that supports pakked files.
 
-    if source is an instance of PakkTemplate and source.template_name exists within source.pakkfile, then the pakked file is rendered.
+    if source is an instance of PakkTemplate and source.template_name exists within source.pakkfile under the subpath 'templates', then the pakked file is rendered.
 
     if source is an instance of PakkTemplate and source.template_name does not exist within source.pakkfile, then source.template_name is
     passed down to flask.render_template as source.
@@ -61,8 +61,10 @@ def render_template(source, **context):
 
     """
     if isinstance(source, PakkTemplate):
-        if source.pakkfile.has_blob(source.template_name):
-            blob = source.pakkfile.get_blob(source.template_name)
+
+        new_template_name = f"templates/{source.template_name}"
+        if source.pakkfile.has_blob(new_template_name):
+            blob = source.pakkfile.get_blob(new_template_name)
             data = blob.get_data()
             text = data.decode("utf-8")
             return render_template_string(text, **context)
