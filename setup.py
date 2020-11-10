@@ -8,7 +8,7 @@ with open("readme.md", "r") as readme:
 
 setup(
     name="pakk_flask",
-    version="1.0.0",
+    version="2.0.0",
     author="Tristen Horton",
     author_email="tristen@tristenhorton.com",
     description="Utilities for working with pakk files in a flask web application.",
